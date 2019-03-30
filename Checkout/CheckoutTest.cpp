@@ -11,3 +11,9 @@ TEST(CheckoutTest, WhenGetPriceOfItemIsCalledForAPoundOfGroundBeefItReturnsTheRe
 	EXPECT_DOUBLE_EQ(5.99, checkout.GetPriceOfItem("Ground Beef"));
 }
 
+TEST(CheckoutTest, WhenGetPriceOfItemIsCalledForAPoundOfBananasItReturnsTheRegularPrice) {
+	Checkout checkout;
+	EXPECT_DOUBLE_EQ(2.38, checkout.GetPriceOfItem("Bananas"));
+}
+
+
