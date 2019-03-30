@@ -3,3 +3,12 @@
 ################################################################################
 
 /.vs/CheckoutOrderTotalKata/v15
+/Checkout/x64
+/Checkout/Release
+/Checkout/Debug
+/Checkout/Checkout.vcxproj.user
+/x64
+/Release
+/Debug
+/CheckoutOrderTotalKata.VC.db
+/googletest-master/googletest/samples
