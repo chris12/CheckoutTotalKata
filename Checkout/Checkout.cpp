@@ -6,17 +6,21 @@ Checkout::Checkout() {
 }
 
 double Checkout::ScanItem(string item, double weight) {
-	return totalPrice += GetPriceOfItem(item);
+	return totalPrice += GetPriceOfItem(item, weight);
 }
 
-double Checkout::GetPriceOfItem(string item) {
+double Checkout::GetPriceOfItem(string item, double weight) {
+	double price = 0.0;
 	if (item == "soup") {
 		return 1.89;
 	} 
 	else if (item == "Ground Beef") {
-		return 5.99;
+		price = weight * 5.99;
+		return price;
 	} 
 	else if (item == "Bananas") {
-		return 2.38;
+		price = weight * 2.38;
+		return price;
 	}
+	return 0.0;
 }
