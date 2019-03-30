@@ -8,7 +8,9 @@
 /Checkout/Debug
 /Checkout/Checkout.vcxproj.user
 /x64
-/Release
 /Debug
 /CheckoutOrderTotalKata.VC.db
 /googletest-master/googletest/samples
+/Release/Checkout.pdb
+/Release/Checkout.ipdb
+/Release/Checkout.iobj
