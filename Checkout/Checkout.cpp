@@ -5,8 +5,12 @@ Checkout::Checkout() {
 	totalPrice = 0.0;
 }
 
-double Checkout::ScanItem(string item, double weight) {
-	return totalPrice += GetPriceOfItem(item, weight);
+string Checkout::ScanItem(string item, double weight) {
+	ostringstream currentTotal;
+	currentTotal.precision(2);
+	totalPrice += GetPriceOfItem(item, weight);
+	currentTotal << fixed << totalPrice;
+	return currentTotal.str();
 }
 
 double Checkout::GetPriceOfItem(string item, double weight) {

@@ -18,17 +18,23 @@ TEST(CheckoutTest, WhenGetPriceOfItemIsCalledForAPoundOfBananasItReturnsTheRegul
 
 TEST(CheckoutTest, WhenSoupIsScannedThePriceIsAddedToCheckoutTotalAndReturned) {
 	Checkout checkout;
-	EXPECT_DOUBLE_EQ(1.89, checkout.ScanItem("soup", 0.0));
+	EXPECT_EQ("1.89", checkout.ScanItem("soup", 0.0));
 }
 
 TEST(CheckoutTest, WhenTwoPoundsOfGroundBeefIsScannedThePriceIsAddedToCheckoutTotalAndReturned) {
 	Checkout checkout;
-	EXPECT_DOUBLE_EQ(11.98, checkout.ScanItem("Ground Beef", 2.0));
+	EXPECT_EQ("11.98", checkout.ScanItem("Ground Beef", 2.0));
 }
 
 TEST(CheckoutTest, WhenThreePoundsOfBananasIsScannedThePriceIsAddedToCheckoutTotalAndReturned) {
 	Checkout checkout;
-	EXPECT_DOUBLE_EQ(7.14, checkout.ScanItem("Bananas", 3.0));
+	EXPECT_EQ("7.14", checkout.ScanItem("Bananas", 3.0));
 }
 
+TEST(CheckoutTest, WhenSoupTwoptTwoPoundsGroundBeefAndOnePtSevenPoundsOfBannanasArePurchasedCorrectTotalIsReturned) {
+	Checkout checkout;
+	EXPECT_EQ("1.89", checkout.ScanItem("soup"));
+	EXPECT_EQ("15.07", checkout.ScanItem("Ground Beef", 2.2));
+	EXPECT_EQ("19.11", checkout.ScanItem("Bananas", 1.7));
+}
 
