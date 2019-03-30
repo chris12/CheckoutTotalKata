@@ -1,6 +1,10 @@
 #include "Checkout.h"
 #include "gtest\gtest.h"
 
+void SetUpTestCase() {
+	Checkout checkout;
+}
+
 TEST(CheckoutTest, WhenGetPriceOfItemIsCalledForACanOfSoupItReturnsTheRegularPrice) {
 	Checkout checkout;
 	EXPECT_DOUBLE_EQ(1.89, checkout.GetPriceOfItem("soup"));
@@ -36,5 +40,12 @@ TEST(CheckoutTest, WhenSoupTwoptTwoPoundsGroundBeefAndOnePtSevenPoundsOfBannanas
 	EXPECT_EQ("1.89", checkout.ScanItem("soup"));
 	EXPECT_EQ("15.07", checkout.ScanItem("Ground Beef", 2.2));
 	EXPECT_EQ("19.11", checkout.ScanItem("Bananas", 1.7));
+}
+
+TEST(CheckoutTest, WhenItemIsRemovedAfterScanningTheTotalPriceIsReturnedWithTheRemovedItemTotalSubtracted) {
+	Checkout checkout;
+	EXPECT_EQ("11.98", checkout.ScanItem("Ground Beef", 2.0));
+	EXPECT_EQ("13.87", checkout.ScanItem("soup"));
+	EXPECT_EQ("11.98", checkout.RemoveItem("soup"));
 }
 

@@ -13,6 +13,14 @@ string Checkout::ScanItem(string item, double weight) {
 	return currentTotal.str();
 }
 
+string Checkout::RemoveItem(string item, double weight) {
+	ostringstream currentTotal;
+	currentTotal.precision(2);
+	totalPrice -= GetPriceOfItem(item, weight);
+	currentTotal << fixed << totalPrice;
+	return currentTotal.str();
+}
+
 double Checkout::GetPriceOfItem(string item, double weight) {
 	double price = 0.0;
 	if (item == "soup") {
