@@ -16,4 +16,9 @@ TEST(CheckoutTest, WhenGetPriceOfItemIsCalledForAPoundOfBananasItReturnsTheRegul
 	EXPECT_DOUBLE_EQ(2.38, checkout.GetPriceOfItem("Bananas"));
 }
 
+TEST(CheckoutTest, WhenSoupIsScannedThePriceIsAddedToCheckoutTotalAndReturned) {
+	Checkout checkout;
+	EXPECT_DOUBLE_EQ(1.89, checkout.ScanItem("soup", 0.0));
+}
+
 
