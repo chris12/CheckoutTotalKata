@@ -23,7 +23,16 @@ string Checkout::RemoveItem(string item, double weight) {
 
 double Checkout::GetPriceOfItem(string item, double weight) {
 	double price = 0.0;
-	if (item == "soup") {
+	auto iter = itemDirectory.find(item);
+	if (iter != itemDirectory.end()) {
+		if (!iter->second.isOnSale) {
+			return iter->second.price;
+		}
+		else {
+			return iter->second.salePrice;
+		}
+	}
+	else if (item == "soup") {
 		return 1.89;
 	} 
 	else if (item == "Ground Beef") {
@@ -35,4 +44,14 @@ double Checkout::GetPriceOfItem(string item, double weight) {
 		return price;
 	}
 	return 0.0;
+}
+
+void Checkout::AddItem(string item, double price, double salePrice, int saleLimit, bool onSale) {
+	Item newItem;
+	newItem.name = item;
+	newItem.price = price;
+	newItem.salePrice = salePrice;
+	newItem.saleLimit = saleLimit;
+	newItem.isOnSale = onSale;
+	itemDirectory.insert(pair<string, Item>(item, newItem));
 }

@@ -49,3 +49,8 @@ TEST(CheckoutTest, WhenItemIsRemovedAfterScanningTheTotalPriceIsReturnedWithTheR
 	EXPECT_EQ("11.98", checkout.RemoveItem("soup"));
 }
 
+TEST(CheckoutTest, WhenUserCreatesAnItemThePriceIsReturnedCorrectly) {
+	Checkout checkout;
+	checkout.AddItem("soup", 1.77, 1.59, 4, false);
+	EXPECT_DOUBLE_EQ(1.77, checkout.GetPriceOfItem("soup"));
+}
