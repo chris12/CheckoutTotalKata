@@ -54,3 +54,9 @@ TEST(CheckoutTest, WhenUserCreatesAnItemThePriceIsReturnedCorrectly) {
 	checkout.AddItem("soup", 1.77, 1.59, 4, false);
 	EXPECT_DOUBLE_EQ(1.77, checkout.GetPriceOfItem("soup"));
 }
+
+TEST(CheckoutTest, WhenNewItemIsAddedToCheckoutsItemDirectoryAndThenScannedTheCorrectTotalIsReturned) {
+	Checkout checkout;
+	checkout.AddItem("Chicken Breast", 1.99, 1.49, 4, true);
+	EXPECT_EQ("2.98", checkout.ScanItem("Chicken Breast", 2.0));
+}

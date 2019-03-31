@@ -26,10 +26,20 @@ double Checkout::GetPriceOfItem(string item, double weight) {
 	auto iter = itemDirectory.find(item);
 	if (iter != itemDirectory.end()) {
 		if (!iter->second.isOnSale) {
-			return iter->second.price;
+			if (weight > 0) {
+				return iter->second.price * weight;
+			}
+			else {
+				return iter->second.price;
+			}
 		}
 		else {
-			return iter->second.salePrice;
+			if (weight > 0) {
+				return iter->second.salePrice * weight;
+			}
+			else {
+				return iter->second.salePrice;
+			}
 		}
 	}
 	else if (item == "soup") {
