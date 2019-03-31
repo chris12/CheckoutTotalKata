@@ -70,6 +70,10 @@ double Checkout::GetPriceOfItem(string item, double weight) {
 	return 0.0;
 }
 
+void Checkout::ResetTotal() {
+	totalPrice = 0.0;
+}
+
 double Checkout::BOGOSale(Item item) {
 	if (item.numPurchased % 2) {
 		return item.price;

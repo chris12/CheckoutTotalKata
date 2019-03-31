@@ -149,3 +149,21 @@ TEST(CheckoutTest, WhenThreeCansOfSoupAreBoughtGetJuiceAtFiftyPercentOff) {
 	EXPECT_EQ("7.66", checkout.ScanItem("juice"));
 	EXPECT_EQ("9.65", checkout.ScanItem("juice"));
 }
+
+TEST(CheckoutTest, WhenResetTotalIsCalledThePriceIsCorrectlyResetToZero) {
+	Checkout checkout;
+	Item soup, juice;
+	soup.name = "soup";
+	soup.price = 1.00;
+	soup.isOnSale = false;
+	juice.name = "juice";
+	juice.price = 0.0;
+	juice.isOnSale = false;
+	checkout.AddItem(soup);
+	checkout.AddItem(juice);
+	EXPECT_EQ("0.00", checkout.ScanItem("juice"));
+	EXPECT_EQ("1.00", checkout.ScanItem("soup"));
+	EXPECT_EQ("1.00", checkout.ScanItem("juice"));
+	checkout.ResetTotal();
+	EXPECT_EQ("0.00", checkout.ScanItem("juice"));
+}
