@@ -73,3 +73,16 @@ TEST(CheckoutTest, WhenItemIsOnSaleTheSaleLimitIsCorrectlyFollowed) {
 	EXPECT_EQ("16.11", checkout.ScanItem("Ground Beef", 1.5));
 	EXPECT_EQ("28.09", checkout.ScanItem("Ground Beef", 2.0));
 }
+
+TEST(CheckoutTest, WhenItemIsBuyOneGetOneFreeTheTotalPriceWillBeThePriceOfOneItem) {
+	Checkout checkout;
+	Item juice;
+	juice.name = "Juice";
+	juice.isOnSale = true;
+	juice.price = 1.99;
+	juice.saleLimit = 6;
+	juice.saleType = BOGO;
+	checkout.AddItem(juice);
+	EXPECT_EQ("1.99", checkout.ScanItem("Juice"));
+	EXPECT_EQ("1.99", checkout.ScanItem("Juice"));
+}
