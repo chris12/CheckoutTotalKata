@@ -33,6 +33,7 @@ public:
 	double GetPriceOfItem(string item, double weight = 0.0);
 	void AddItem(string name, double price, double salePrice, int saleLimit, bool onSale, SaleType saleType = NONE);
 	void AddItem(Item newItem);
+	void EditItem(Item item);
 	void ResetTotal();
 protected:
 private:

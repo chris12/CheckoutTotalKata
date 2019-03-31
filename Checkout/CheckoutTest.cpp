@@ -167,3 +167,20 @@ TEST(CheckoutTest, WhenResetTotalIsCalledThePriceIsCorrectlyResetToZero) {
 	checkout.ResetTotal();
 	EXPECT_EQ("0.00", checkout.ScanItem("juice"));
 }
+
+TEST(CheckoutTest, WhenSaleEndsPriceRevertsBackToRegularPrice) {
+	Checkout checkout;
+	Item salsa;
+	salsa.name = "salsa";
+	salsa.price = 2.00;
+	salsa.isOnSale = true;
+	salsa.salePrice = 1.00;
+	salsa.saleType = DISCOUNT;
+	salsa.saleLimit = 5;
+	checkout.AddItem(salsa);
+	EXPECT_EQ("1.00", checkout.ScanItem(salsa.name));
+	salsa.isOnSale = false;
+	salsa.saleType = NONE;
+	checkout.EditItem(salsa);
+	EXPECT_EQ("3.00", checkout.ScanItem(salsa.name));
+}

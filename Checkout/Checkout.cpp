@@ -124,3 +124,20 @@ void Checkout::AddItem(Item newItem) {
 	newItem.numPurchased = 0;
 	itemDirectory.insert(pair<string, Item>(newItem.name, newItem));
 }
+
+void Checkout::EditItem(Item item) {
+	auto iter = itemDirectory.find(item.name);
+	if (iter != itemDirectory.end()) {
+		iter->second.price = item.price;
+		iter->second.salePrice = item.salePrice;
+		iter->second.isOnSale = item.isOnSale;
+		iter->second.saleType = item.saleType;
+		iter->second.buyXItems = item.buyXItems;
+		iter->second.forYprice = item.forYprice;
+		iter->second.saleItemBundled = item.saleItemBundled;
+		iter->second.saleLimit = item.saleLimit;
+	}
+	else {
+		AddItem(item);
+	}
+}
