@@ -18,6 +18,7 @@ private:
 		double price;
 		double salePrice;
 		int saleLimit;
+		int numPurchasedOnSale;
 		bool isOnSale;
 	} Item;
 	double totalPrice;

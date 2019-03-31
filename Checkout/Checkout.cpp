@@ -25,20 +25,22 @@ double Checkout::GetPriceOfItem(string item, double weight) {
 	double price = 0.0;
 	auto iter = itemDirectory.find(item);
 	if (iter != itemDirectory.end()) {
-		if (!iter->second.isOnSale) {
+		if (iter->second.isOnSale && iter->second.numPurchasedOnSale < iter->second.saleLimit) {
+			if (weight > 0) {
+				iter->second.numPurchasedOnSale++;
+				return iter->second.salePrice * weight;
+			}
+			else {
+				iter->second.numPurchasedOnSale++;
+				return iter->second.salePrice;
+			}
+		}
+		else {
 			if (weight > 0) {
 				return iter->second.price * weight;
 			}
 			else {
 				return iter->second.price;
-			}
-		}
-		else {
-			if (weight > 0) {
-				return iter->second.salePrice * weight;
-			}
-			else {
-				return iter->second.salePrice;
 			}
 		}
 	}

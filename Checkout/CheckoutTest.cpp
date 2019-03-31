@@ -60,3 +60,16 @@ TEST(CheckoutTest, WhenNewItemIsAddedToCheckoutsItemDirectoryAndThenScannedTheCo
 	checkout.AddItem("Chicken Breast", 1.99, 1.49, 4, true);
 	EXPECT_EQ("2.98", checkout.ScanItem("Chicken Breast", 2.0));
 }
+
+TEST(CheckoutTest, WhenItemIsOnSaleTheSaleLimitIsCorrectlyFollowed) {
+	Checkout checkout;
+	checkout.AddItem("soup", 1.89, 0.99, 3, true);
+	checkout.AddItem("Ground Beef", 5.99, 4.50, 2, true);
+	EXPECT_EQ("0.99", checkout.ScanItem("soup"));
+	EXPECT_EQ("1.98", checkout.ScanItem("soup"));
+	EXPECT_EQ("2.97", checkout.ScanItem("soup"));
+	EXPECT_EQ("4.86", checkout.ScanItem("soup"));
+	EXPECT_EQ("9.36", checkout.ScanItem("Ground Beef", 1.0));
+	EXPECT_EQ("16.11", checkout.ScanItem("Ground Beef", 1.5));
+	EXPECT_EQ("28.09", checkout.ScanItem("Ground Beef", 2.0));
+}
