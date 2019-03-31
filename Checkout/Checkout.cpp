@@ -18,6 +18,11 @@ string Checkout::RemoveItem(string item, double weight) {
 	currentTotal.precision(2);
 	totalPrice -= GetPriceOfItem(item, weight);
 	currentTotal << fixed << totalPrice;
+	auto iter = itemDirectory.find(item);
+	// Check if item exists in the ItemDirectory
+	if (iter != itemDirectory.end()) {
+		iter->second.numPurchased--;
+	}
 	return currentTotal.str();
 }
 
