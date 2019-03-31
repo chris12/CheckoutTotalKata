@@ -86,3 +86,20 @@ TEST(CheckoutTest, WhenItemIsBuyOneGetOneFreeTheTotalPriceWillBeThePriceOfOneIte
 	EXPECT_EQ("1.99", checkout.ScanItem("Juice"));
 	EXPECT_EQ("1.99", checkout.ScanItem("Juice"));
 }
+
+TEST(CheckoutTest, WhenItemIsBuyOneGetOneFreeWithALimitOfFourTheSixthItemWillNotBeFree) {
+	Checkout checkout;
+	Item juice;
+	juice.name = "Juice";
+	juice.isOnSale = true;
+	juice.price = 1.99;
+	juice.saleLimit = 4;
+	juice.saleType = BOGO;
+	checkout.AddItem(juice);
+	EXPECT_EQ("1.99", checkout.ScanItem("Juice"));
+	EXPECT_EQ("1.99", checkout.ScanItem("Juice"));
+	EXPECT_EQ("3.98", checkout.ScanItem("Juice"));
+	EXPECT_EQ("3.98", checkout.ScanItem("Juice"));
+	EXPECT_EQ("5.97", checkout.ScanItem("Juice"));
+	EXPECT_EQ("7.96", checkout.ScanItem("Juice"));
+}
