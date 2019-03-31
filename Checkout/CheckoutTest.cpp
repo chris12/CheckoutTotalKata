@@ -122,3 +122,30 @@ TEST(CheckoutTest, WhenSoupIsBuyThreeForFiveWithALimitOfThreeTheCorrectTotalIsRe
 	EXPECT_EQ("8.78", checkout.ScanItem("soup"));
 	EXPECT_EQ("10.67", checkout.ScanItem("soup"));
 }
+
+TEST(CheckoutTest, WhenThreeCansOfSoupAreBoughtGetJuiceAtFiftyPercentOff) {
+	Checkout checkout;
+	Item soup, juice;
+	soup.name = "soup";
+	soup.isOnSale = false;
+	soup.price = 1.89;
+	soup.saleLimit = 3;
+	soup.buyXItems = 3;
+	juice.name = "juice";
+	juice.isOnSale = true;
+	juice.saleType = BUYXGETYOFF;
+	juice.saleItemBundled = "soup";
+	juice.buyXItems = 3;
+	juice.forYprice = .5;
+	juice.price = 1.99;
+	juice.saleLimit = 2;
+
+	checkout.AddItem(soup);
+	checkout.AddItem(juice);
+	EXPECT_EQ("1.89", checkout.ScanItem("soup"));
+	EXPECT_EQ("3.78", checkout.ScanItem("soup"));
+	EXPECT_EQ("5.67", checkout.ScanItem("soup"));
+	EXPECT_EQ("6.67", checkout.ScanItem("juice"));
+	EXPECT_EQ("7.66", checkout.ScanItem("juice"));
+	EXPECT_EQ("9.65", checkout.ScanItem("juice"));
+}

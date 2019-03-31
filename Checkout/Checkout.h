@@ -17,11 +17,12 @@ typedef struct {
 	double price;
 	double salePrice;
 	int saleLimit;
-	int numPurchasedOnSale;
+	int numPurchased;
 	bool isOnSale;
 	SaleType saleType;
 	int buyXItems;
 	double forYprice;
+	string saleItemBundled;
 } Item;
 
 class Checkout {
@@ -36,6 +37,7 @@ protected:
 private:
 	double BOGOSale(Item item);
 	double BuyXForYSale(Item item);
+	double BuyXGetYOff(Item item);
 	double totalPrice;
 	map<string, Item> itemDirectory;
 };
