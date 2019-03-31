@@ -32,6 +32,9 @@ double Checkout::GetPriceOfItem(string item, double weight) {
 			if (iter->second.saleType == BOGO) {
 				price = BOGOSale(iter->second);
 			}
+			else if (iter->second.saleType == BUYXFORY) {
+				price = BuyXForYSale(iter->second);
+			}
 			// Calculate price if it is by weight
 			if (weight > 0) {
 				return price * weight;
@@ -72,8 +75,14 @@ double Checkout::BOGOSale(Item item) {
 	}
 }
 
+double Checkout::BuyXForYSale(Item item) {
+	return item.forYprice / item.buyXItems;
+}
+
 void Checkout::AddItem(string item, double price, double salePrice, int saleLimit, bool onSale, SaleType saleType) {
 	Item newItem;
+	// Ensure numPurchased is set to zero when added
+	newItem.numPurchasedOnSale = 0;
 	newItem.name = item;
 	newItem.price = price;
 	newItem.salePrice = salePrice;

@@ -103,3 +103,22 @@ TEST(CheckoutTest, WhenItemIsBuyOneGetOneFreeWithALimitOfFourTheSixthItemWillNot
 	EXPECT_EQ("5.97", checkout.ScanItem("Juice"));
 	EXPECT_EQ("7.96", checkout.ScanItem("Juice"));
 }
+
+TEST(CheckoutTest, WhenSoupIsBuyThreeForFiveWithALimitOfThreeTheCorrectTotalIsReturnedForThreeAndSixCansOfSoup) {
+	Checkout checkout;
+	Item soup;
+	soup.name = "soup";
+	soup.isOnSale = true;
+	soup.price = 1.89;
+	soup.saleLimit = 3;
+	soup.saleType = BUYXFORY;
+	soup.buyXItems = 3;
+	soup.forYprice = 5.00;
+	checkout.AddItem(soup);
+	EXPECT_EQ("1.67", checkout.ScanItem("soup"));
+	EXPECT_EQ("3.33", checkout.ScanItem("soup"));
+	EXPECT_EQ("5.00", checkout.ScanItem("soup"));
+	EXPECT_EQ("6.89", checkout.ScanItem("soup"));
+	EXPECT_EQ("8.78", checkout.ScanItem("soup"));
+	EXPECT_EQ("10.67", checkout.ScanItem("soup"));
+}
