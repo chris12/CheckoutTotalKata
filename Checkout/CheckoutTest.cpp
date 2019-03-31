@@ -46,7 +46,7 @@ TEST(CheckoutTest, WhenItemIsRemovedAfterScanningTheTotalPriceIsReturnedWithTheR
 	Checkout checkout;
 	EXPECT_EQ("11.98", checkout.ScanItem("Ground Beef", 2.0));
 	EXPECT_EQ("13.87", checkout.ScanItem("soup"));
-	EXPECT_EQ("11.98", checkout.RemoveItem("soup"));
+	EXPECT_EQ("11.98", checkout.RemoveItemFromOrder("soup"));
 }
 
 TEST(CheckoutTest, WhenUserCreatesAnItemThePriceIsReturnedCorrectly) {

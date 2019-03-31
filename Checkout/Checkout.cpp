@@ -13,7 +13,7 @@ string Checkout::ScanItem(string item, double weight) {
 	return currentTotal.str();
 }
 
-string Checkout::RemoveItem(string item, double weight) {
+string Checkout::RemoveItemFromOrder(string item, double weight) {
 	ostringstream currentTotal;
 	currentTotal.precision(2);
 	totalPrice -= GetPriceOfItem(item, weight);
