@@ -87,9 +87,18 @@ void Checkout::ResetTotal() {
 }
 
 double Checkout::BuyXGetYFree(Item item) {
-	if (item.numPurchased % 2 && item.saleType == BOGO || 
-		item.numPurchased % (item.buyXItems + 1) && item.saleType == BUYXGETYFREE) {
+	int numItems = 0;
+	if (item.numPurchased % 2 && item.saleType == BOGO) {
 		return item.price;
+	}
+	else if (item.saleType == BUYXGETYFREE) {
+		numItems = item.numPurchased % (item.buyXItems + item.getYFree);
+		if (numItems > item.buyXItems || numItems == 0) {
+			return 0.0;
+		}
+		else {
+			return item.price;
+		}
 	}
 	else {
 		return 0.0;

@@ -221,3 +221,28 @@ TEST(Checkout, WhenGetTotalIsCalledItReturnsTheCurrentTotal) {
 	EXPECT_EQ("1.50", checkout.ScanItem(soup.name));
 	EXPECT_EQ("1.50", checkout.GetTotal());
 }
+
+TEST(CheckoutTest, WhenSoupIsBuyTwoGetThreeFreeThePriceReflectsTheCostOfTwoCansOfSoup) {
+	Checkout checkout;
+	Item soup;
+	soup.name = "soup";
+	soup.price = 2.00;
+	soup.salePrice = 1.50;
+	soup.isOnSale = true;
+	soup.saleType = BUYXGETYFREE;
+	soup.buyXItems = 2;
+	soup.getYFree = 3;
+	soup.saleLimit = 10;
+	checkout.AddItem(soup);
+	EXPECT_EQ("2.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("4.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("4.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("4.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("4.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("6.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("8.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("8.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("8.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("8.00", checkout.ScanItem(soup.name));
+}
+
