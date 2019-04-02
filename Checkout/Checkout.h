@@ -31,6 +31,7 @@ class Checkout {
 public:
 	Checkout();
 	string ScanItem(string item, double weight = 0.0);
+	string GetTotal();
 	string RemoveItemFromOrder(string item, double weight = 0.0);
 	double GetPriceOfItem(string item, double weight = 0.0);
 	void AddItem(string name, double price, double salePrice, int saleLimit, bool onSale, SaleType saleType = NONE);

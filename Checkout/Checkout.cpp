@@ -26,6 +26,13 @@ string Checkout::RemoveItemFromOrder(string item, double weight) {
 	return currentTotal.str();
 }
 
+string Checkout::GetTotal() {
+	ostringstream total;
+	total.precision(2);
+	total << fixed << totalPrice;
+	return total.str();
+}
+
 double Checkout::GetPriceOfItem(string item, double weight) {
 	double price = 0.0;
 	auto iter = itemDirectory.find(item);

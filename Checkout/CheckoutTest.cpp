@@ -208,3 +208,16 @@ TEST(CheckoutTest, WhenSoupIsBuyTwoGetOneFreeThePriceReflectsTheCostOfTwoCansOfS
 	EXPECT_EQ("14.00", checkout.ScanItem(soup.name));
 	EXPECT_EQ("16.00", checkout.ScanItem(soup.name));
 }
+
+TEST(Checkout, WhenGetTotalIsCalledItReturnsTheCurrentTotal) {
+	Checkout checkout;
+	Item soup;
+	soup.name = "soup";
+	soup.price = 2.00;
+	soup.salePrice = 1.50;
+	soup.isOnSale = true;
+	soup.saleLimit = 4;
+	checkout.AddItem(soup);
+	EXPECT_EQ("1.50", checkout.ScanItem(soup.name));
+	EXPECT_EQ("1.50", checkout.GetTotal());
+}
