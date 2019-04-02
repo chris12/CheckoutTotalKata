@@ -184,3 +184,27 @@ TEST(CheckoutTest, WhenSaleEndsPriceRevertsBackToRegularPrice) {
 	checkout.EditItem(salsa);
 	EXPECT_EQ("3.00", checkout.ScanItem(salsa.name));
 }
+
+TEST(CheckoutTest, WhenSoupIsBuyTwoGetOneFreeThePriceReflectsTheCostOfTwoCansOfSoup) {
+	Checkout checkout;
+	Item soup;
+	soup.name = "soup";
+	soup.price = 2.00;
+	soup.salePrice = 1.50;
+	soup.isOnSale = true;
+	soup.saleType = BUYXGETYFREE;
+	soup.buyXItems = 2;
+	soup.getYFee = 1;
+	soup.saleLimit = 6;
+	checkout.AddItem(soup);
+	EXPECT_EQ("2.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("4.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("4.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("6.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("8.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("8.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("10.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("12.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("14.00", checkout.ScanItem(soup.name));
+	EXPECT_EQ("16.00", checkout.ScanItem(soup.name));
+}

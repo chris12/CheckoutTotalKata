@@ -34,8 +34,8 @@ double Checkout::GetPriceOfItem(string item, double weight) {
 		if (iter->second.isOnSale && iter->second.numPurchased < iter->second.saleLimit) {
 			price = iter->second.salePrice;
 			iter->second.numPurchased++;
-			if (iter->second.saleType == BOGO) {
-				price = BOGOSale(iter->second);
+			if (iter->second.saleType == BOGO || iter->second.saleType == BUYXGETYFREE) {
+				price = BuyXGetYFree(iter->second);
 			}
 			else if (iter->second.saleType == BUYXFORY) {
 				price = BuyXForYSale(iter->second);
@@ -79,8 +79,9 @@ void Checkout::ResetTotal() {
 	totalPrice = 0.0;
 }
 
-double Checkout::BOGOSale(Item item) {
-	if (item.numPurchased % 2) {
+double Checkout::BuyXGetYFree(Item item) {
+	if (item.numPurchased % 2 && item.saleType == BOGO || 
+		item.numPurchased % (item.buyXItems + 1) && item.saleType == BUYXGETYFREE) {
 		return item.price;
 	}
 	else {

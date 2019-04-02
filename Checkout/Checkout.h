@@ -7,6 +7,7 @@ using namespace std;
 typedef enum {
 	NONE,
 	BOGO,				// BuyOneGetOne
+	BUYXGETYFREE,		// Can be used for buy 2 get 1 free specials
 	DISCOUNT,			// Discount
 	BUYXGETYOFF,		// Buy X items get Y at % off
 	BUYXFORY,			// Buy X Items for $Y
@@ -21,6 +22,7 @@ typedef struct {
 	bool isOnSale;
 	SaleType saleType;
 	int buyXItems;
+	int getYFee;
 	double forYprice;
 	string saleItemBundled;
 } Item;
@@ -37,7 +39,7 @@ public:
 	void ResetTotal();
 protected:
 private:
-	double BOGOSale(Item item);
+	double BuyXGetYFree(Item item);
 	double BuyXForYSale(Item item);
 	double BuyXGetYOff(Item item);
 	double totalPrice;
