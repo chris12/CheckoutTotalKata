@@ -246,3 +246,22 @@ TEST(CheckoutTest, WhenSoupIsBuyTwoGetThreeFreeThePriceReflectsTheCostOfTwoCansO
 	EXPECT_EQ("8.00", checkout.ScanItem(soup.name));
 }
 
+TEST(CheckoutTest, WhenJuiceIsBuyTwoGetOneHalfOffTheTotalReturnedIsTwoAndAHalfTimesThePriceOfJuiceWithFourthBeingFullPrice) {
+	Checkout checkout;
+	Item juice;
+	juice.name = "juice";
+	juice.isOnSale = true;
+	juice.saleType = BUYXGETYOFF;
+	juice.saleItemBundled = "juice";
+	juice.buyXItems = 2;
+	juice.forYprice = .5;
+	juice.price = 2.00;
+	juice.saleLimit = 3;
+
+	checkout.AddItem(juice);
+	EXPECT_EQ("2.00", checkout.ScanItem(juice.name));
+	EXPECT_EQ("4.00", checkout.ScanItem(juice.name));
+	EXPECT_EQ("5.00", checkout.ScanItem(juice.name));
+	EXPECT_EQ("7.00", checkout.ScanItem(juice.name));
+}
+

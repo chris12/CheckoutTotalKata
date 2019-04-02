@@ -110,10 +110,22 @@ double Checkout::BuyXForYSale(Item item) {
 }
 
 double Checkout::BuyXGetYOff(Item item) {
-	auto iter = itemDirectory.find(item.saleItemBundled);
-	// Check if item exists in the ItemDirectory
-	if (iter != itemDirectory.end()) {
-		if (iter->second.numPurchased == item.buyXItems) {
+	int numItems = 0;
+	if (item.name != item.saleItemBundled) {
+		auto iter = itemDirectory.find(item.saleItemBundled);
+		// Check if item exists in the ItemDirectory
+		if (iter != itemDirectory.end()) {
+			if (iter->second.numPurchased == item.buyXItems) {
+				return item.price * item.forYprice;
+			}
+			else {
+				return item.price;
+			}
+		}
+	}
+	else {
+		numItems = item.numPurchased % (item.buyXItems + 1);
+		if (numItems > item.buyXItems || numItems == 0) {
 			return item.price * item.forYprice;
 		}
 		else {
