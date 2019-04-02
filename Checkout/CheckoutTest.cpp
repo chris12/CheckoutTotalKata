@@ -194,7 +194,7 @@ TEST(CheckoutTest, WhenSoupIsBuyTwoGetOneFreeThePriceReflectsTheCostOfTwoCansOfS
 	soup.isOnSale = true;
 	soup.saleType = BUYXGETYFREE;
 	soup.buyXItems = 2;
-	soup.getYFee = 1;
+	soup.getYFree = 1;
 	soup.saleLimit = 6;
 	checkout.AddItem(soup);
 	EXPECT_EQ("2.00", checkout.ScanItem(soup.name));

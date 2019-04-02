@@ -22,7 +22,7 @@ typedef struct {
 	bool isOnSale;
 	SaleType saleType;
 	int buyXItems;
-	int getYFee;
+	int getYFree;
 	double forYprice;
 	string saleItemBundled;
 } Item;
