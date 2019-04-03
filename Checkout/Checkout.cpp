@@ -9,6 +9,10 @@ string Checkout::ScanItem(string item, double weight) {
 	ostringstream currentTotal;
 	currentTotal.precision(2);
 	totalPrice += GetPriceOfItem(item, weight);
+	auto iter = itemDirectory.find(item);
+	if (iter != itemDirectory.end()) {
+		iter->second.lbsPurchased += weight;
+	}
 	currentTotal << fixed << totalPrice;
 	return currentTotal.str();
 }
@@ -47,8 +51,11 @@ double Checkout::GetPriceOfItem(string item, double weight) {
 			else if (iter->second.saleType == BUYXFORY) {
 				price = BuyXForYSale(iter->second);
 			}
-			else if (iter->second.saleType == BUYXGETYOFF) {
+			else if (iter->second.saleType == BUYXGETYOFF && weight == 0.0) {
 				price = BuyXGetYOff(iter->second);
+			}
+			else if (iter->second.saleType == BUYXGETYOFF && weight > 0.0) {
+				return price = BuyXLbsGetYOff(iter->second, weight);
 			}
 			// Calculate price if it is by weight
 			if (weight > 0) {
@@ -135,10 +142,30 @@ double Checkout::BuyXGetYOff(Item item) {
 	return item.price;
 }
 
+double Checkout::BuyXLbsGetYOff(Item item, double weight) {
+	double poundsAtSalePrice = 0.0;
+	double poundsAtRegularPrice = 0.0;
+	double price = 0.0;
+	if (item.lbsPurchased >= item.buyXLbs && (item.lbsPurchased + weight) <= item.saleLimit) {
+		return (item.price * item.forYprice) * weight;
+	}
+	else if ((item.lbsPurchased + weight) > item.saleLimit ) {
+		poundsAtSalePrice = item.saleLimit - item.lbsPurchased;
+		poundsAtRegularPrice = weight - poundsAtSalePrice;
+		price += (item.price * item.forYprice) * poundsAtSalePrice;
+		price += item.price * poundsAtRegularPrice;
+		return price;
+	}
+	else {
+		return item.price * weight;
+	}
+}
+
 void Checkout::AddItem(string item, double price, double salePrice, int saleLimit, bool onSale, SaleType saleType) {
 	Item newItem;
 	// Ensure numPurchased is set to zero when added
 	newItem.numPurchased = 0;
+	newItem.lbsPurchased = 0.0;
 	newItem.name = item;
 	newItem.price = price;
 	newItem.salePrice = salePrice;
@@ -151,6 +178,7 @@ void Checkout::AddItem(string item, double price, double salePrice, int saleLimi
 void Checkout::AddItem(Item newItem) {
 	// Ensure numPurchased is set to zero when added
 	newItem.numPurchased = 0;
+	newItem.lbsPurchased = 0.0;
 	itemDirectory.insert(pair<string, Item>(newItem.name, newItem));
 }
 

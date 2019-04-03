@@ -19,9 +19,11 @@ typedef struct {
 	double salePrice;
 	int saleLimit;
 	int numPurchased;
+	double lbsPurchased;
 	bool isOnSale;
 	SaleType saleType;
 	int buyXItems;
+	double buyXLbs;
 	int getYFree;
 	double forYprice;
 	string saleItemBundled;
@@ -43,6 +45,7 @@ private:
 	double BuyXGetYFree(Item item);
 	double BuyXForYSale(Item item);
 	double BuyXGetYOff(Item item);
+	double BuyXLbsGetYOff(Item item, double weight);
 	double totalPrice;
 	map<string, Item> itemDirectory;
 };
