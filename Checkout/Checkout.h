@@ -14,19 +14,19 @@ typedef enum {
 } SaleType;	
 
 typedef struct {
-	string name;
-	double price;
-	double salePrice;
-	int saleLimit;
-	int numPurchased;
-	double lbsPurchased;
-	bool isOnSale;
-	SaleType saleType;
-	int buyXItems;
-	double buyXLbs;
-	int getYFree;
-	double forYprice;
-	string saleItemBundled;
+	string name;			// Name of the item
+	double price;			// Regular price of the item
+	double salePrice;		// Sale price of the item
+	int saleLimit;			// Sales limits for eaches and weighted items (rounded to full pound).
+	int numPurchased;		// Number of eaches item purchased
+	double lbsPurchased;    // Pounds of a weight item purchased
+	bool isOnSale;			// True if item is on sale
+	SaleType saleType;	    // Type of sale see enumeration for options
+	int buyXItems;			// Buy X quantity of item to qualify for discount
+	double buyXLbs;			// Buy X pounds of item to qualify for discount
+	int getYFree;			// Get Y quantity free when buyXItems requirement is met
+	double forYprice;		// Used for Buy X Get Y off (percent 0-1, 0.5 == 50% discount) or Buy X for $Y
+	string saleItemBundled;	// Used for Buy Item X Get Item Y on sale (Y = saleItemBundled)
 } Item;
 
 class Checkout {
