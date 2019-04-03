@@ -146,19 +146,21 @@ double Checkout::BuyXLbsGetYOff(Item item, double weight) {
 	double poundsAtSalePrice = 0.0;
 	double poundsAtRegularPrice = 0.0;
 	double price = 0.0;
-	if (item.lbsPurchased >= item.buyXLbs && (item.lbsPurchased + weight) <= item.saleLimit) {
-		return (item.price * item.forYprice) * weight;
-	}
-	else if ((item.lbsPurchased + weight) > item.saleLimit ) {
+
+	if ((item.lbsPurchased + weight) > item.saleLimit) {
 		poundsAtSalePrice = item.saleLimit - item.lbsPurchased;
 		poundsAtRegularPrice = weight - poundsAtSalePrice;
-		price += (item.price * item.forYprice) * poundsAtSalePrice;
-		price += item.price * poundsAtRegularPrice;
-		return price;
+	} 
+	else if (weight > item.lbsPurchased) {
+		poundsAtSalePrice = item.lbsPurchased;
+		poundsAtRegularPrice = weight - poundsAtSalePrice;
 	}
 	else {
 		return item.price * weight;
 	}
+	price += (item.price * item.forYprice) * poundsAtSalePrice;
+	price += item.price * poundsAtRegularPrice;
+	return price;
 }
 
 void Checkout::AddItem(string item, double price, double salePrice, int saleLimit, bool onSale, SaleType saleType) {

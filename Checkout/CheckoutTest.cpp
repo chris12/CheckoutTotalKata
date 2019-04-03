@@ -265,21 +265,6 @@ TEST(CheckoutTest, WhenJuiceIsBuyTwoGetOneHalfOffTheTotalReturnedIsTwoAndAHalfTi
 	EXPECT_EQ("7.00", checkout.ScanItem(juice.name));
 }
 
-//TEST(CheckoutTest, WhenGroundBeefIsBuyThreePoundsGetTwoPoundsHalfOffTheTotalIsTheCostOfFourPounds) {
-//	Checkout checkout;
-//	Item groundBeef;
-//	groundBeef.name = "Ground Beef";
-//	groundBeef.isOnSale = true;
-//	groundBeef.saleType = BUYXGETYOFF;
-//	groundBeef.buyXItems = 3;
-//	groundBeef.price = 5.00;
-//	groundBeef.saleLimit = 10;
-//	checkout.AddItem(groundBeef);
-//
-//	EXPECT_EQ("30.00", checkout.ScanItem(groundBeef.name), 6.0);
-//	EXPECT_EQ("10.00", checkout.ScanItem(groundBeef.name), 4.0);
-//}
-
 TEST(CheckoutTest, WhenGroundBeefIsPricedAtBuyThreePoundsGetThreePoundsHalfOffSevenPoundsIsPriceOfFiveAndAHalfPounds) {
 	Checkout checkout;
 	Item groundBeef;
@@ -291,6 +276,22 @@ TEST(CheckoutTest, WhenGroundBeefIsPricedAtBuyThreePoundsGetThreePoundsHalfOffSe
 	groundBeef.saleLimit = 6;
 	groundBeef.buyXLbs = 3.0;
 	groundBeef.forYprice = 0.5;
+	checkout.AddItem(groundBeef);
+	EXPECT_EQ("15.00", checkout.ScanItem(groundBeef.name, 3.0));
+	EXPECT_EQ("27.50", checkout.ScanItem(groundBeef.name, 4.0));
+}
+
+TEST(CheckoutTest, WhenGroundBeefIsPricedAtBuyThreePoundsGetThreePoundsHalfOffWithNoSaleLimitSevenPoundsIsPriceOfFiveAndAHalfPounds) {
+	Checkout checkout;
+	Item groundBeef;
+	groundBeef.name = "Ground Beef";
+	groundBeef.price = 5.00;
+	groundBeef.isOnSale = true;
+	groundBeef.saleType = BUYXGETYOFF;
+	groundBeef.saleItemBundled = "Ground Beef";
+	groundBeef.buyXLbs = 3.0;
+	groundBeef.forYprice = 0.5;
+	groundBeef.saleLimit = 100;
 	checkout.AddItem(groundBeef);
 	EXPECT_EQ("15.00", checkout.ScanItem(groundBeef.name, 3.0));
 	EXPECT_EQ("27.50", checkout.ScanItem(groundBeef.name, 4.0));
